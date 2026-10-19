@@ -1,343 +1,88 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 
-// import {
-//   useCallback,
-//   useRef,
-//   useState,
-//   type CSSProperties,
-// } from "react";
-
-// import { useNavigate } from "react-router-dom";
-// import PasswordModal from "../../components/PasswordModal/PasswordModal";
-// import "./Welcome.css";
-
-// type Position = {
-//   x: number;
-//   y: number;
-// };
-
-// function Welcome() {
-//   const navigate = useNavigate();
-
-//   const [showPasswordModal, setShowPasswordModal] = useState(false);
-//   const [isBlooming, setIsBlooming] = useState(false);
-
-//   // Vị trí nút Normal friend
-//   const [normalPosition, setNormalPosition] =
-//     useState<Position | null>(null);
-
-//   const normalButtonRef = useRef<HTMLButtonElement>(null);
-
-//   const closePasswordModal = useCallback(() => {
-//     setShowPasswordModal(false);
-//     setIsBlooming(false);
-//   }, []);
-
-//   const handlePasswordSuccess = () => {
-//     setShowPasswordModal(false);
-//     navigate("/special");
-//   };
-
-//   // Random vị trí mới cho nút Normal
-//   const moveNormalButton = () => {
-//     const button = normalButtonRef.current;
-//     if (!button) return;
-
-//     const rect = button.getBoundingClientRect();
-
-//     const buttonWidth = rect.width;
-//     const buttonHeight = rect.height;
-
-//     const padding = 25;
-
-//     const maxX = Math.max(
-//       padding,
-//       window.innerWidth - buttonWidth - padding
-//     );
-
-//     const maxY = Math.max(
-//       padding,
-//       window.innerHeight - buttonHeight - padding
-//     );
-
-//     let newX = padding;
-//     let newY = padding;
-
-//     // Tránh nhảy đến quá gần vị trí cũ
-//     for (let i = 0; i < 20; i++) {
-//       const x = padding + Math.random() * (maxX - padding);
-//       const y = padding + Math.random() * (maxY - padding);
-
-//       const distance = Math.hypot(
-//         x - rect.left,
-//         y - rect.top
-//       );
-
-//       if (distance > 180 || i === 19) {
-//         newX = x;
-//         newY = y;
-//         break;
-//       }
-//     }
-
-//     setNormalPosition({
-//       x: newX,
-//       y: newY,
-//     });
-//   };
-
-//   return (
-//     <main className="welcome-page">
-//       <div
-//         className={`welcome-content ${
-//           showPasswordModal ? "welcome-hidden" : ""
-//         }`}
-//       >
-//         {/* Bông tulip có hiệu ứng nở */}
-//         <div
-//           className={`welcome-tulip ${
-//             isBlooming ? "tulip-blooming" : ""
-//           }`}
-//           aria-hidden="true"
-//         >
-//           <span className="tulip-glow" />
-
-//           <span className="tulip-petal petal-left">🌷</span>
-//           <span className="tulip-petal petal-right">🌷</span>
-
-//           <span className="tulip-emoji">🌷</span>
-
-//           <span className="bloom-sparkle sparkle-left">
-//             ✨
-//           </span>
-
-//           <span className="bloom-sparkle sparkle-right">
-//             ✨
-//           </span>
-//         </div>
-
-//         <h1>Happy 20/10!</h1>
-
-//         <p>Pick one to continue</p>
-
-//         <div className="welcome-buttons">
-//           {/* Giữ chỗ của nút Normal */}
-//           <div className="normal-button-slot">
-//             <button
-//               ref={normalButtonRef}
-//               type="button"
-//               className={`btn-friend normal-running-button ${
-//                 normalPosition ? "is-escaping" : ""
-//               }`}
-//               style={
-//                 normalPosition
-//                   ? ({
-//                       left: `${normalPosition.x}px`,
-//                       top: `${normalPosition.y}px`,
-//                     } as CSSProperties)
-//                   : undefined
-//               }
-//               onPointerEnter={(event) => {
-//                 // Chỉ chạy trốn khi hover bằng chuột
-//                 if (event.pointerType === "mouse") {
-//                   moveNormalButton();
-//                 }
-//               }}
-//               onClick={(event) => {
-//                 event.preventDefault();
-//                 moveNormalButton();
-//               }}
-//             >
-//               Normal friend
-//             </button>
-//           </div>
-
-//           <button
-//             className="btn-special"
-//             onMouseEnter={() => setIsBlooming(true)}
-//             onMouseLeave={() => setIsBlooming(false)}
-//             onFocus={() => setIsBlooming(true)}
-//             onBlur={() => setIsBlooming(false)}
-//             onClick={() => setShowPasswordModal(true)}
-//           >
-//             Really special
-//           </button>
-//         </div>
-//       </div>
-
-//       <PasswordModal
-//         isOpen={showPasswordModal}
-//         onClose={closePasswordModal}
-//         onSuccess={handlePasswordSuccess}
-//       />
-//     </main>
-//   );
-// }
-
-// export default Welcome;
-
-
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type CSSProperties,
-} from "react";
 import { useNavigate } from "react-router-dom";
 
 import PasswordModal from "../../components/PasswordModal/PasswordModal";
-import "./Welcome.css";
 
-type Position = {
-  x: number;
-  y: number;
-};
+import "./Welcome.css";
 
 function Welcome() {
   const navigate = useNavigate();
 
-  const [showPasswordModal, setShowPasswordModal] =
-    useState(false);
+  // Popup mật khẩu
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
 
+  // Hiệu ứng hoa nở
   const [isBlooming, setIsBlooming] = useState(false);
 
-  const [normalPosition, setNormalPosition] =
-    useState<Position | null>(null);
+  // Timer mở popup trên điện thoại
+  const modalTimerRef = useRef<number | null>(null);
 
-  const normalButtonRef = useRef<HTMLButtonElement>(null);
-  const normalPositionRef = useRef<Position | null>(null);
-  const openTimerRef = useRef<number | null>(null);
-  const specialOpeningRef = useRef(false);
+  const openingRef = useRef(false);
 
-  const closePasswordModal = useCallback(() => {
-    setShowPasswordModal(false);
-    setIsBlooming(false);
-    specialOpeningRef.current = false;
-  }, []);
+  // ===================================
+  // CLEANUP
+  // ===================================
 
-  // Clear timer khi rời trang
   useEffect(() => {
     return () => {
-      if (openTimerRef.current !== null) {
-        window.clearTimeout(openTimerRef.current);
+      if (modalTimerRef.current !== null) {
+        window.clearTimeout(modalTimerRef.current);
       }
     };
   }, []);
 
-  // Giữ nút Normal nằm trong viewport khi xoay màn hình
-  useEffect(() => {
-    const keepButtonInside = () => {
-      const position = normalPositionRef.current;
-      const button = normalButtonRef.current;
+  // ===================================
+  // CLOSE PASSWORD MODAL
+  // ===================================
 
-      if (!position || !button) return;
-
-      const width = button.offsetWidth;
-      const height = button.offsetHeight;
-      const padding = 12;
-
-      const next = {
-        x: Math.max(
-          padding,
-          Math.min(
-            position.x,
-            window.innerWidth - width - padding
-          )
-        ),
-        y: Math.max(
-          padding,
-          Math.min(
-            position.y,
-            window.innerHeight - height - padding
-          )
-        ),
-      };
-
-      normalPositionRef.current = next;
-      setNormalPosition(next);
-    };
-
-    window.addEventListener("resize", keepButtonInside);
-
-    return () => {
-      window.removeEventListener(
-        "resize",
-        keepButtonInside
-      );
-    };
+  const closePasswordModal = useCallback(() => {
+    setShowPasswordModal(false);
+    setIsBlooming(false);
+    openingRef.current = false;
   }, []);
 
-  const moveNormalButton = () => {
-    if (showPasswordModal) return;
-
-    const button = normalButtonRef.current;
-    if (!button) return;
-
-    const rect = button.getBoundingClientRect();
-
-    const padding = 12;
-    const maxX = Math.max(
-      padding,
-      window.innerWidth - rect.width - padding
-    );
-    const maxY = Math.max(
-      padding,
-      window.innerHeight - rect.height - padding
-    );
-
-    let newPosition: Position = {
-      x: padding,
-      y: padding,
-    };
-
-    for (let i = 0; i < 30; i++) {
-      const candidate = {
-        x: padding + Math.random() * (maxX - padding),
-        y: padding + Math.random() * (maxY - padding),
-      };
-
-      const distance = Math.hypot(
-        candidate.x - rect.left,
-        candidate.y - rect.top
-      );
-
-      newPosition = candidate;
-
-      if (distance > 120) break;
-    }
-
-    normalPositionRef.current = newPosition;
-    setNormalPosition(newPosition);
-  };
+  // ===================================
+  // OPEN SPECIAL MODAL
+  // ===================================
 
   const openSpecialModal = () => {
-    if (specialOpeningRef.current || showPasswordModal) {
+    if (openingRef.current || showPasswordModal) {
       return;
     }
 
-    specialOpeningRef.current = true;
+    openingRef.current = true;
     setIsBlooming(true);
 
+    // Kiểm tra thiết bị có hỗ trợ hover không
     const hasHover = window.matchMedia(
-      "(hover: hover) and (pointer: fine)"
+      "(hover: hover) and (pointer: fine)",
     ).matches;
 
     if (hasHover) {
+      // Desktop: mở popup ngay
       setShowPasswordModal(true);
-      return;
+    } else {
+      // Mobile: hoa nở trước rồi mới mở popup
+      modalTimerRef.current = window.setTimeout(() => {
+        setShowPasswordModal(true);
+        modalTimerRef.current = null;
+      }, 700);
     }
-
-    // Mobile: cho hoa nở trước khi mở popup
-    openTimerRef.current = window.setTimeout(() => {
-      setShowPasswordModal(true);
-      openTimerRef.current = null;
-    }, 700);
   };
+
+  // ===================================
+  // PASSWORD SUCCESS
+  // ===================================
 
   const handlePasswordSuccess = () => {
     setShowPasswordModal(false);
     navigate("/special");
   };
+
+  // ===================================
+  // RENDER
+  // ===================================
 
   return (
     <main className="welcome-page">
@@ -347,96 +92,85 @@ function Welcome() {
         }`}
         inert={showPasswordModal}
       >
-        {/* Tulip nở khi chọn Really special */}
+        {/* ===================================
+            TULIP FLOWER
+        =================================== */}
+
         <div
-          className={`welcome-tulip ${
-            isBlooming ? "tulip-blooming" : ""
-          }`}
+          className={`welcome-tulip ${isBlooming ? "tulip-blooming" : ""}`}
           aria-hidden="true"
         >
+          {/* Ánh sáng */}
           <span className="tulip-glow" />
 
-          <span className="tulip-petal petal-left">
-            🌷
-          </span>
-          <span className="tulip-petal petal-right">
-            🌷
-          </span>
+          {/* Cánh hoa */}
+          <span className="tulip-petal petal-left">🌷</span>
 
+          <span className="tulip-petal petal-right">🌷</span>
+
+          {/* Hoa chính */}
           <span className="tulip-emoji">🌷</span>
 
-          <span className="bloom-sparkle sparkle-left">
-            ✨
-          </span>
-          <span className="bloom-sparkle sparkle-right">
-            ✨
-          </span>
+          {/* Sparkles */}
+          <span className="bloom-sparkle sparkle-left">✨</span>
+
+          <span className="bloom-sparkle sparkle-right">✨</span>
         </div>
 
+        {/* ===================================
+            TITLE
+        =================================== */}
+
         <h1>Happy 20/10!</h1>
+
         <p>Pick one to continue</p>
 
-        <div className="welcome-buttons">
-          <div className="normal-button-slot">
-            <button
-              ref={normalButtonRef}
-              type="button"
-              className={`btn-friend normal-running-button ${
-                normalPosition ? "is-escaping" : ""
-              }`}
-              style={
-                normalPosition
-                  ? ({
-                      left: `${normalPosition.x}px`,
-                      top: `${normalPosition.y}px`,
-                    } as CSSProperties)
-                  : undefined
-              }
-              onPointerEnter={(event) => {
-                if (event.pointerType === "mouse") {
-                  moveNormalButton();
-                }
-              }}
-              onClick={(event) => {
-                event.preventDefault();
-                moveNormalButton();
-              }}
-            >
-              Normal friend
-            </button>
-          </div>
+        {/* ===================================
+            BUTTONS
+        =================================== */}
 
+        <div className="welcome-buttons">
+          {/* NORMAL FRIEND */}
+          <button
+            type="button"
+            className="btn-friend"
+            onClick={() => navigate("/celebrate")}
+          >
+            Friend
+          </button>
+
+          {/* REALLY SPECIAL */}
           <button
             type="button"
             className="btn-special"
             onPointerEnter={(event) => {
-              if (
-                event.pointerType === "mouse" &&
-                !specialOpeningRef.current
-              ) {
+              if (event.pointerType === "mouse" && !openingRef.current) {
                 setIsBlooming(true);
               }
             }}
             onPointerLeave={(event) => {
-              if (
-                event.pointerType === "mouse" &&
-                !specialOpeningRef.current
-              ) {
+              if (event.pointerType === "mouse" && !openingRef.current) {
                 setIsBlooming(false);
               }
             }}
-            onFocus={() => setIsBlooming(true)}
+            onFocus={() => {
+              setIsBlooming(true);
+            }}
             onBlur={() => {
-              if (!specialOpeningRef.current) {
+              if (!openingRef.current) {
                 setIsBlooming(false);
               }
             }}
             onClick={openSpecialModal}
           >
-            Really special
+            Special Friend
           </button>
         </div>
       </div>
+
+      {/* ===================================
+          PASSWORD POPUP
+      =================================== */}
 
       <PasswordModal
         isOpen={showPasswordModal}

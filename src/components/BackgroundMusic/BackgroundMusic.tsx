@@ -4,7 +4,14 @@ import "./BackgroundMusic.css";
 
 function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement>(null);
+
   const [isPlaying, setIsPlaying] = useState(false);
+
+  // Đánh dấu người dùng đã chủ động điều khiển nhạc
+  const userControlledRef = useRef(false);
+
+  // Đánh dấu nhạc đã được phát thành công
+  const hasPlayedRef = useRef(false);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -14,26 +21,36 @@ function BackgroundMusic() {
 
     // Thử phát ngay khi vào website
     const tryAutoPlay = async () => {
+      if (userControlledRef.current) return;
+
       try {
         await audio.play();
-        setIsPlaying(true);
+
+        hasPlayedRef.current = true;
       } catch {
-        // Trình duyệt chặn autoplay
-        setIsPlaying(false);
+        // Browser chặn autoplay
       }
     };
 
     void tryAutoPlay();
 
-    // Nếu autoplay bị chặn, phát ở lần tương tác đầu
+    // Chỉ tự kích hoạt ở lần tương tác đầu,
+    // không được bật lại khi người dùng đã tắt
     const startOnInteraction = () => {
-      if (audio.paused) {
-        void audio.play().then(() => {
-          setIsPlaying(true);
-        }).catch(() => {
-          setIsPlaying(false);
-        });
+      if (
+        userControlledRef.current ||
+        hasPlayedRef.current
+      ) {
+        return;
       }
+
+      void audio.play()
+        .then(() => {
+          hasPlayedRef.current = true;
+        })
+        .catch(() => {
+          // Chưa được phép phát
+        });
     };
 
     document.addEventListener(
@@ -59,18 +76,31 @@ function BackgroundMusic() {
     };
   }, []);
 
+  // ==================================
+  // USER CONTROL
+  // ==================================
+
   const toggleMusic = async () => {
     const audio = audioRef.current;
     if (!audio) return;
 
+    // Đánh dấu từ đây nhạc chỉ được
+    // điều khiển bằng nút loa
+    userControlledRef.current = true;
+
     if (!audio.paused) {
       audio.pause();
-    } else {
-      try {
-        await audio.play();
-      } catch {
-        setIsPlaying(false);
-      }
+      setIsPlaying(false);
+      return;
+    }
+
+    try {
+      await audio.play();
+
+      hasPlayedRef.current = true;
+      setIsPlaying(true);
+    } catch {
+      setIsPlaying(false);
     }
   };
 
@@ -81,7 +111,10 @@ function BackgroundMusic() {
         src="/audio/music.mp3"
         loop
         preload="auto"
-        onPlay={() => setIsPlaying(true)}
+        onPlay={() => {
+          hasPlayedRef.current = true;
+          setIsPlaying(true);
+        }}
         onPause={() => setIsPlaying(false)}
       />
 
@@ -90,8 +123,11 @@ function BackgroundMusic() {
         className="music-toggle"
         onClick={toggleMusic}
         aria-label={
-          isPlaying ? "Pause music" : "Play music"
+          isPlaying
+            ? "Pause music"
+            : "Play music"
         }
+        aria-pressed={isPlaying}
       >
         {isPlaying ? "🔊" : "🔇"}
       </button>

@@ -1,11 +1,10 @@
 
 /* ==========================================
-   SPECIAL PAGE
+   SPECIAL PAGE - COMPLETE RESTORED CSS
 ========================================== */
 
 .special-page {
   position: relative;
-
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
@@ -14,12 +13,67 @@
   align-items: center;
   justify-content: center;
 
-  padding: 45px 20px;
-  overflow-x: hidden;
+  padding: 90px 20px 55px;
+  overflow-x: clip;
+
+  font-family: "Quicksand", sans-serif;
 }
 
 /* ==========================================
-   ENVELOPE TRANSITION
+   BACK TO WELCOME
+========================================== */
+
+.special-back-home {
+  position: fixed;
+
+  top: max(20px, env(safe-area-inset-top));
+  left: max(20px, env(safe-area-inset-left));
+
+  z-index: 30;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  min-height: 44px;
+  padding: 0 20px;
+
+  border: 2px solid #ff9cbd;
+  border-radius: 30px;
+
+  background: rgba(255, 255, 255, 0.88);
+  color: #4b293b;
+
+  font-family: "Quicksand", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+
+  box-shadow:
+    0 5px 18px rgba(255, 105, 160, 0.12);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  cursor: pointer;
+  touch-action: manipulation;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .special-back-home:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+      0 8px 22px rgba(255, 105, 160, 0.24);
+  }
+}
+
+/* ==========================================
+   ENVELOPE SCREEN
 ========================================== */
 
 .special-envelope {
@@ -31,13 +85,16 @@
   align-items: center;
   justify-content: center;
 
+  max-width: 100%;
+  margin: auto;
+
   transition:
     opacity 0.8s ease,
     transform 0.8s ease,
     filter 0.8s ease;
 }
 
-/* Phong thư mờ dần rồi biến mất */
+/* Phong thư mở xong sẽ tan biến */
 
 .special-envelope.is-fading {
   opacity: 0;
@@ -47,26 +104,27 @@
     scale(0.82);
 
   filter: blur(8px);
-
   pointer-events: none;
 }
 
-/* Dòng hướng dẫn */
+/* Hướng dẫn mở phong thư */
 
 .letter-instruction {
-  margin-top: -8px;
+  margin: -8px 0 0;
 
-  color: #ec7399;
+  font-family: "Quicksand", sans-serif;
   font-size: 15px;
   font-weight: 700;
 
+  color: #ec7399;
   text-align: center;
 
-  animation: instructionPulse 2s ease-in-out infinite;
+  animation:
+    instructionPulse 2s ease-in-out infinite;
 }
 
 /* ==========================================
-   MEMORIES SECTION
+   MEMORIES CONTAINER
 ========================================== */
 
 .memories-section {
@@ -74,14 +132,137 @@
   z-index: 2;
 
   width: min(100%, 1100px);
+  max-width: 1100px;
+  min-width: 0;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
-  gap: 40px;
+  gap: 26px;
+  margin: 0 auto;
 
-  animation: memoriesEnter 0.8s ease both;
+  animation:
+    memoriesEnter 0.8s ease both;
+}
+
+/* ==========================================
+   HERO HEADER
+========================================== */
+
+.special-hero {
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+  text-align: center;
+}
+
+/* Hoa trang trí */
+
+.special-hero-decoration {
+  display: block;
+
+  font-size: 23px;
+  letter-spacing: 12px;
+
+  animation:
+    heroSparkle 3s ease-in-out infinite;
+}
+
+/* Tiêu đề chính */
+
+.special-hero-title {
+  margin: 0;
+
+  width: 100%;
+  max-width: 100%;
+
+  font-family: "Quicksand", sans-serif;
+  font-size: clamp(42px, 6.5vw, 90px);
+  font-weight: 700;
+
+  line-height: 1.2;
+  letter-spacing: -1.5px;
+
+  color: #4b293b;
+
+  text-align: center;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+
+  text-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.35),
+    0 8px 24px rgba(118, 74, 92, 0.08);
+
+  animation:
+    heroAppear 1s ease both;
+}
+
+/* ==========================================
+   VIETNAM FLAG
+========================================== */
+
+.special-hero-line {
+  position: relative;
+
+  width: 190px;
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 5px auto;
+}
+
+/* Hai đường kẻ hồng */
+
+.special-hero-line::before,
+.special-hero-line::after {
+  content: "";
+
+  position: absolute;
+  top: 50%;
+
+  width: 65px;
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ff83ad
+  );
+}
+
+.special-hero-line::before {
+  left: 0;
+}
+
+.special-hero-line::after {
+  right: 0;
+  transform: rotate(180deg);
+}
+
+/* SVG lá cờ */
+
+.vietnam-flag {
+  display: block;
+
+  width: 36px;
+  height: 24px;
+
+  flex-shrink: 0;
+  border-radius: 2px;
+
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.12);
 }
 
 /* ==========================================
@@ -97,18 +278,27 @@
   gap: 22px;
 
   width: 100%;
+  max-width: 1100px;
+
   padding: 18px;
+  margin: 0 auto;
+
+  align-items: start;
 }
 
-/* Ảnh polaroid */
+/* ==========================================
+   POLAROID IMAGE
+========================================== */
 
 .memory-photo {
   position: relative;
 
+  width: 100%;
+  min-width: 0;
+
   padding: 9px 9px 26px;
 
   background: #ffffff;
-
   border-radius: 5px;
 
   box-shadow:
@@ -120,7 +310,7 @@
 
   transform:
     translateY(35px)
-    rotate(var(--photo-rotation))
+    rotate(var(--photo-rotation, 0deg))
     scale(0.78);
 
   transition:
@@ -129,7 +319,7 @@
     visibility 0.85s;
 }
 
-/* Khi ảnh xuất hiện */
+/* Ảnh xuất hiện lần lượt */
 
 .memory-photo.is-visible {
   opacity: 1;
@@ -137,59 +327,63 @@
 
   transform:
     translateY(0)
-    rotate(var(--photo-rotation))
+    rotate(var(--photo-rotation, 0deg))
     scale(1);
 }
 
-/* Ảnh bên trong */
+/* Giới hạn kích thước ảnh */
 
 .memory-photo img {
   display: block;
 
   width: 100%;
-  aspect-ratio: 4 / 5;
+  max-width: 100%;
+  height: auto;
 
+  aspect-ratio: 4 / 5;
   object-fit: cover;
 
   border-radius: 2px;
 }
 
-/* Hover ảnh */
+/* Hover Polaroid trên desktop */
 
-.memory-photo.is-visible:hover {
-  transform:
-    translateY(-10px)
-    rotate(0deg)
-    scale(1.04);
+@media (hover: hover) and (pointer: fine) {
+  .memory-photo.is-visible:hover {
+    transform:
+      translateY(-10px)
+      rotate(0deg)
+      scale(1.04);
 
-  z-index: 3;
+    z-index: 3;
+  }
 }
 
 /* ==========================================
-   MESSAGE
+   MESSAGE SECTION
 ========================================== */
 
 .memories-message {
   width: 100%;
   max-width: 880px;
-
-  text-align: center;
+  min-width: 0;
 
   padding: 0 18px;
+
+  text-align: center;
 }
 
-/* Tiêu đề */
+/* To Chang */
 
-.memories-message h1 {
-  margin: 0 0 24px;
+.receiver-title {
+  margin: 0 0 20px;
 
   font-family: "Quicksand", sans-serif;
-
-  font-size: clamp(28px, 4vw, 48px);
+  font-size: clamp(24px, 3.2vw, 38px);
   font-weight: 700;
   line-height: 1.25;
 
-  color: #4b293b;
+  color: #5a3344;
 
   min-height: 1.25em;
 }
@@ -208,13 +402,16 @@
   color: #624b56;
 
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
 
   min-height: 130px;
 }
 
-/* Cursor typing */
+/* Con trỏ typing */
 
 .typing-cursor {
+  display: inline;
+
   color: #ff73a6;
   font-weight: 700;
 
@@ -223,7 +420,7 @@
 }
 
 /* ==========================================
-   SIGNATURE + FACE IMAGE
+   SIGNATURE
 ========================================== */
 
 .memories-signature {
@@ -237,38 +434,45 @@
   gap: 12px;
 
   font-family: "Quicksand", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
 
-  animation: signatureAppear 0.8s ease both;
+  animation:
+    signatureAppear 0.8s ease both;
 }
 
+/* Hai Ha màu đen như yêu cầu trước */
+
 .signature-text {
-  color: #eb79aa;
+  color: #333333;
+
+  font-size: 18px;
   font-weight: 700;
   text-align: center;
 }
 
-/* Ảnh mặt PNG nền trong suốt */
+/* Ảnh mặt bên dưới tên, không khung */
 
 .signature-face {
   display: block;
-  display: block;
 
   width: 110px;
+  max-width: 30vw;
   height: auto;
 
   object-fit: contain;
 
   border: none;
+  border-radius: 0;
+
   background: transparent;
   box-shadow: none;
 
-  filter: drop-shadow(
-    0 6px 14px rgba(200, 105, 145, 0.18)
-  );
+  filter:
+    drop-shadow(
+      0 6px 14px rgba(200, 105, 145, 0.18)
+    );
 
-  animation: faceFloat 3s ease-in-out infinite;
+  animation:
+    faceFloat 3s ease-in-out infinite;
 }
 
 /* ==========================================
@@ -294,6 +498,7 @@
 
 .firework-particle {
   position: absolute;
+
   top: 0;
   left: 0;
 
@@ -307,7 +512,7 @@
 }
 
 /* ==========================================
-   BIG FIREWORKS - ONE TIME
+   BIG FIREWORKS - ONE BURST
 ========================================== */
 
 .firework-big .firework-particle {
@@ -352,7 +557,7 @@
 }
 
 /* ==========================================
-   SMALL FIREWORKS - INFINITE
+   SMALL FIREWORKS - CONTINUOUS
 ========================================== */
 
 .firework-small .firework-particle {
@@ -404,6 +609,31 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes heroAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes heroSparkle {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
   }
 }
 
@@ -461,7 +691,11 @@
 
   .memories-section {
     max-width: 650px;
-    gap: 30px;
+    gap: 24px;
+  }
+
+  .special-hero-title {
+    font-size: clamp(38px, 6vw, 65px);
   }
 
   .memories-message p {
@@ -475,16 +709,52 @@
 
 @media (max-width: 600px) {
   .special-page {
-    padding: 30px 12px;
+    padding: 85px 12px 35px;
+  }
+
+  .special-back-home {
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+
+    padding: 0 14px;
+    font-size: 12px;
   }
 
   .memories-section {
-    gap: 25px;
+    gap: 22px;
+  }
+
+  .special-hero {
+    gap: 8px;
+  }
+
+  .special-hero-decoration {
+    font-size: 18px;
+    letter-spacing: 7px;
+  }
+
+  .special-hero-title {
+    font-size: clamp(32px, 8vw, 46px);
+    line-height: 1.2;
+    letter-spacing: -0.8px;
+  }
+
+  .special-hero-line {
+    width: 170px;
+  }
+
+  .special-hero-line::before,
+  .special-hero-line::after {
+    width: 55px;
   }
 
   .memories-grid {
-    padding: 8px;
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    width: 100%;
     gap: 12px;
+    padding: 8px;
   }
 
   .memory-photo {
@@ -495,48 +765,56 @@
     padding: 0 8px;
   }
 
-  .memories-message h1 {
-    font-size: 27px;
-    margin-bottom: 18px;
+  .receiver-title {
+    font-size: clamp(20px, 6vw, 28px);
+    margin-bottom: 14px;
   }
 
   .memories-message p {
     font-size: 15px;
     line-height: 1.8;
-    min-height: 150px;
+    min-height: 0;
   }
 
   .memories-signature {
-    font-size: 14px;
     gap: 8px;
   }
 
-  .signature-face {
-    width: 70px;
+  .signature-text {
+    font-size: 14px;
   }
 
-  @keyframes bigFireworkBurst {
-    0% {
-      opacity: 0;
+  .signature-face {
+    width: 85px;
+  }
 
-      transform:
-        rotate(var(--angle))
-        translateY(0)
-        scale(0.2);
-    }
+  .firework-big .firework-particle {
+    width: 8px;
+    height: 8px;
+  }
 
-    15% {
-      opacity: 1;
-    }
+  .firework-small .firework-particle {
+    width: 6px;
+    height: 6px;
+  }
+}
 
-    100% {
-      opacity: 0;
+/* ==========================================
+   VERY SMALL MOBILE
+========================================== */
 
-      transform:
-        rotate(var(--angle))
-        translateY(-110px)
-        scale(0.6);
-    }
+@media (max-width: 360px) {
+  .memories-grid {
+    gap: 8px;
+    padding: 5px;
+  }
+
+  .special-hero-title {
+    font-size: 30px;
+  }
+
+  .memories-message p {
+    font-size: 14px;
   }
 }
 
@@ -549,9 +827,17 @@
   .memories-section,
   .memory-photo,
   .memories-signature,
-  .signature-face {
+  .signature-face,
+  .special-hero-title,
+  .special-hero-decoration {
     animation: none;
     transition: none;
+  }
+
+  .memory-photo.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: rotate(var(--photo-rotation, 0deg));
   }
 
   .firework-particle {
@@ -561,149 +847,5 @@
 
   .typing-cursor {
     animation: none;
-  }
-}
-
-
-/* ===================================
-   SPECIAL PAGE MOBILE FIX
-=================================== */
-
-.special-page {
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100dvh;
-  height: auto;
-
-  overflow: visible;
-}
-
-.memories-section {
-  width: min(100%, 1100px);
-  min-width: 0;
-}
-
-/* Desktop: hover ảnh */
-
-@media (hover: hover) and (pointer: fine) {
-  .memory-photo.is-visible:hover {
-    transform:
-      translateY(-10px)
-      rotate(0deg)
-      scale(1.04);
-
-    z-index: 3;
-  }
-}
-
-/* Mobile: không giữ hover sau khi chạm */
-
-@media (hover: none) {
-  .memory-photo.is-visible:hover {
-    transform:
-      translateY(0)
-      rotate(var(--photo-rotation))
-      scale(1);
-  }
-}
-
-/* Tablet */
-
-@media (max-width: 900px) {
-  .memories-grid {
-    grid-template-columns: repeat(
-      2,
-      minmax(0, 1fr)
-    );
-  }
-}
-
-/* Mobile */
-
-@media (max-width: 600px) {
-  .special-page {
-    padding: 32px 12px;
-  }
-
-  .memories-grid {
-    width: 100%;
-    padding: 6px;
-
-    grid-template-columns: repeat(
-      2,
-      minmax(0, 1fr)
-    );
-
-    gap: 12px;
-  }
-
-  .memory-photo {
-    min-width: 0;
-    padding: 6px 6px 18px;
-  }
-
-  .memory-photo img {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-  }
-
-  .memories-message {
-    width: 100%;
-    padding: 0 8px;
-  }
-
-  .memories-message h1 {
-    font-size: clamp(25px, 7vw, 34px);
-    overflow-wrap: anywhere;
-  }
-
-  .memories-message p {
-    font-size: 15px;
-    line-height: 1.8;
-    min-height: 0;
-    overflow-wrap: anywhere;
-  }
-
-  .memories-signature {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    gap: 8px;
-  }
-
-  .signature-face {
-    display: block;
-    width: 85px;
-    max-width: 30vw;
-    height: auto;
-  }
-
-  /* Giảm kích thước pháo hoa lớn */
-  .firework-big .firework-particle {
-    width: 8px;
-    height: 8px;
-  }
-
-  .firework-small .firework-particle {
-    width: 6px;
-    height: 6px;
-  }
-
-  .fireworks-layer {
-    pointer-events: none;
-  }
-}
-
-/* Màn hình rất nhỏ */
-
-@media (max-width: 360px) {
-  .memories-grid {
-    gap: 8px;
-  }
-
-  .memories-message p {
-    font-size: 14px;
   }
 }

@@ -1,0 +1,537 @@
+
+/* ==========================================
+   CELEBRATE PAGE
+========================================== */
+
+.celebrate-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 85px 20px 45px;
+  overflow-x: clip;
+}
+
+/* ==========================================
+   BACK TO WELCOME
+========================================== */
+
+.celebrate-back-home {
+  position: fixed;
+  top: max(20px, env(safe-area-inset-top));
+  left: max(20px, env(safe-area-inset-left));
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  min-height: 44px;
+  padding: 0 20px;
+
+  border: 2px solid #ff9cbd;
+  border-radius: 30px;
+
+  background: rgba(255, 255, 255, 0.85);
+  color: #4b293b;
+
+  font-family: "Quicksand", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+
+  box-shadow: 0 5px 18px rgba(255, 105, 160, 0.12);
+  backdrop-filter: blur(8px);
+
+  cursor: pointer;
+  touch-action: manipulation;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .celebrate-back-home:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(255, 105, 160, 0.24);
+  }
+}
+
+/* ==========================================
+   ENVELOPE
+========================================== */
+
+.celebrate-envelope {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease,
+    filter 0.8s ease;
+}
+
+.celebrate-envelope.is-fading {
+  opacity: 0;
+  transform: translateY(-35px) scale(0.82);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.celebrate-letter-instruction {
+  margin-top: -8px;
+
+  color: #ec7399;
+  font-family: "Quicksand", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+
+  animation: celebrateInstruction 2s ease-in-out infinite;
+}
+
+/* ==========================================
+   MAIN CONTENT
+========================================== */
+
+.celebrate-content {
+  position: relative;
+  z-index: 2;
+
+  width: min(100%, 1000px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  animation: celebrateAppear 1s ease both;
+}
+
+/* ==========================================
+   FLOWER
+========================================== */
+
+.celebrate-flower {
+  font-size: 66px;
+  line-height: 1;
+  margin-bottom: 22px;
+
+  animation: celebrateFloat 3s ease-in-out infinite;
+}
+
+/* ==========================================
+   HERO
+========================================== */
+
+.celebrate-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 12px;
+  width: 100%;
+}
+
+.celebrate-decoration {
+  font-size: 22px;
+  letter-spacing: 10px;
+
+  animation: celebrateGlow 3s ease-in-out infinite;
+}
+
+.celebrate-hero h1 {
+  margin: 0;
+  max-width: 100%;
+
+  font-family: "Quicksand", sans-serif;
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -1.5px;
+
+  color: #4b293b;
+  text-wrap: balance;
+
+  text-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.35),
+    0 8px 24px rgba(118, 74, 92, 0.08);
+}
+
+/* ==========================================
+   VIETNAM FLAG
+========================================== */
+
+.celebrate-flag-line {
+  position: relative;
+
+  width: 200px;
+  height: 40px;
+  margin-top: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.celebrate-flag-line::before,
+.celebrate-flag-line::after {
+  content: "";
+
+  position: absolute;
+  top: 50%;
+
+  width: 68px;
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ff83ad
+  );
+}
+
+.celebrate-flag-line::before {
+  left: 0;
+}
+
+.celebrate-flag-line::after {
+  right: 0;
+  transform: rotate(180deg);
+}
+
+.celebrate-flag {
+  display: block;
+
+  width: 42px;
+  height: 28px;
+
+  border-radius: 2px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+.celebrate-message {
+  width: 100%;
+  max-width: 850px;
+  margin-top: 40px;
+}
+
+.celebrate-message h2 {
+  margin: 0 0 25px;
+
+  font-family: "Quicksand", sans-serif;
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 700;
+  line-height: 1.35;
+
+  color: #5a3344;
+}
+
+.celebrate-message p {
+  margin: 0 auto;
+  min-height: 260px;
+
+  font-family: "Quicksand", sans-serif;
+  font-size: clamp(17px, 1.9vw, 22px);
+  font-weight: 500;
+  line-height: 2;
+
+  color: #624b56;
+
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   TYPING CURSOR
+========================================== */
+
+.celebrate-cursor {
+  color: #ff73a6;
+  font-weight: 700;
+
+  animation: celebrateBlink 0.7s step-end infinite;
+}
+
+/* ==========================================
+   ENDING
+========================================== */
+
+.celebrate-ending {
+  margin-top: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  color: #e66e9e;
+
+  font-family: "Quicksand", sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+
+  animation: celebrateAppear 0.9s ease both;
+}
+
+/* ==========================================
+   FIREWORKS
+========================================== */
+
+.celebrate-fireworks-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.celebrate-firework {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.celebrate-particle {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  border-radius: 50%;
+  background: var(--fw-color);
+
+  box-shadow:
+    0 0 10px var(--fw-color),
+    0 0 22px var(--fw-color);
+}
+
+/* Pháo hoa lớn: một lần */
+
+.celebrate-firework-big .celebrate-particle {
+  width: 12px;
+  height: 12px;
+
+  animation:
+    celebrateBigBurst
+    1.5s
+    ease-out
+    var(--fw-delay)
+    1
+    both;
+}
+
+@keyframes celebrateBigBurst {
+  0% {
+    opacity: 0;
+    transform:
+      rotate(var(--fw-angle))
+      translateY(0)
+      scale(0.2);
+  }
+
+  15%,
+  65% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      rotate(var(--fw-angle))
+      translateY(-190px)
+      scale(0.65);
+  }
+}
+
+/* Pháo hoa nhỏ: lặp liên tục */
+
+.celebrate-firework-small .celebrate-particle {
+  width: 8px;
+  height: 8px;
+
+  animation:
+    celebrateSmallBurst
+    1.5s
+    ease-out
+    var(--fw-delay)
+    infinite;
+}
+
+@keyframes celebrateSmallBurst {
+  0% {
+    opacity: 0;
+    transform:
+      rotate(var(--fw-angle))
+      translateY(0)
+      scale(0.4);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      rotate(var(--fw-angle))
+      translateY(-90px)
+      scale(0.7);
+  }
+}
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes celebrateAppear {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes celebrateFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes celebrateGlow {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes celebrateBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes celebrateInstruction {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+  .celebrate-page {
+    padding: 85px 16px 40px;
+  }
+
+  .celebrate-back-home {
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+
+    padding: 0 14px;
+    font-size: 12px;
+  }
+
+  .celebrate-flower {
+    font-size: 54px;
+    margin-bottom: 18px;
+  }
+
+  .celebrate-hero h1 {
+    font-size: clamp(32px, 8vw, 44px);
+    letter-spacing: -0.8px;
+  }
+
+  .celebrate-decoration {
+    font-size: 17px;
+    letter-spacing: 7px;
+  }
+
+  .celebrate-message {
+    margin-top: 30px;
+  }
+
+  .celebrate-message h2 {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+
+  .celebrate-message p {
+    font-size: 16px;
+    line-height: 1.85;
+    min-height: 0;
+  }
+
+  .celebrate-ending {
+    font-size: 16px;
+    gap: 8px;
+  }
+
+  .celebrate-firework-big .celebrate-particle {
+    width: 8px;
+    height: 8px;
+  }
+
+  .celebrate-firework-small .celebrate-particle {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .celebrate-content,
+  .celebrate-flower,
+  .celebrate-decoration,
+  .celebrate-ending,
+  .celebrate-cursor,
+  .celebrate-letter-instruction {
+    animation: none;
+  }
+
+  .celebrate-envelope {
+    transition: none;
+  }
+
+  .celebrate-particle {
+    animation: none;
+    opacity: 0;
+  }
+}

@@ -84,7 +84,7 @@ function PasswordModal({
     event.preventDefault();
 
     if (!password.trim()) {
-      setError("Please enter the password 💗");
+      setError("Please enter the password");
       return;
     }
 
@@ -119,11 +119,11 @@ function PasswordModal({
         <div className="password-lock">🔐</div>
 
         <h2 id="password-title">
-          Only for you
+          Please enter password
         </h2>
 
         <p className="password-hint">
-          Hint: [gợi ý chỉ hai đứa biết]
+          Hint: Ask Me =)))
         </p>
 
         <form onSubmit={handleSubmit}>
