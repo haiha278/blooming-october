@@ -136,7 +136,7 @@ function Welcome() {
             className="btn-friend"
             onClick={() => navigate("/celebrate")}
           >
-            Friend
+            For Everyone
           </button>
 
           {/* REALLY SPECIAL */}
