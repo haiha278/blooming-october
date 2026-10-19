@@ -1,0 +1,535 @@
+
+/* ==========================================
+   WELCOME PAGE
+========================================== */
+
+.welcome-page {
+  width: 100%;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow-x: clip;
+}
+
+/* ==========================================
+   WELCOME CONTENT
+========================================== */
+
+.welcome-content {
+  position: relative;
+
+  width: 100%;
+  max-width: 600px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 24px 16px;
+}
+
+/* Ẩn nội dung khi popup mở */
+
+.welcome-content.welcome-hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ==========================================
+   TITLE
+========================================== */
+
+.welcome-content h1 {
+  margin: 0;
+
+  font-family: "Quicksand", sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.25;
+
+  color: #4b293b;
+}
+
+/* Subtitle */
+
+.welcome-content p {
+  margin: 20px 0 18px;
+
+  color: #8e7b80;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* ==========================================
+   BUTTON GROUP
+========================================== */
+
+.welcome-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+}
+
+/* CSS chung cho hai nút */
+
+.welcome-buttons button {
+  min-width: 130px;
+  height: 47px;
+
+  padding: 0 20px;
+
+  border-radius: 30px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  cursor: pointer;
+
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* ==========================================
+   NORMAL FRIEND BUTTON
+========================================== */
+
+.normal-button-slot {
+  position: relative;
+
+  width: 130px;
+  height: 47px;
+
+  flex-shrink: 0;
+}
+
+/* Nút ở vị trí ban đầu */
+
+.welcome-buttons .normal-running-button {
+  position: relative;
+  z-index: 10;
+
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+  margin: 0;
+
+  background: rgba(255, 255, 255, 0.7);
+
+  border: 2px solid #ff9cbd;
+  border-radius: 30px;
+
+  color: #4b3040;
+}
+
+/* Nút sau khi bắt đầu chạy trốn */
+
+.welcome-buttons .normal-running-button.is-escaping {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 130px;
+  height: 47px;
+
+  margin: 0;
+  z-index: 50;
+
+  transform: none;
+
+  transition:
+    left 0.22s ease-out,
+    top 0.22s ease-out,
+    box-shadow 0.22s ease-out;
+
+  box-shadow:
+    0 6px 20px rgba(255, 105, 160, 0.18);
+}
+
+/* ==========================================
+   REALLY SPECIAL BUTTON
+========================================== */
+
+.welcome-buttons .btn-special {
+  min-width: 130px;
+
+  border: none;
+
+  background: linear-gradient(
+    135deg,
+    #ff70a4,
+    #ff8fbc
+  );
+
+  color: white;
+
+  box-shadow:
+    0 8px 18px rgba(255, 105, 160, 0.3);
+}
+
+/* Hover chỉ áp dụng cho thiết bị có chuột */
+
+@media (hover: hover) and (pointer: fine) {
+  .welcome-buttons .btn-special:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+      0 10px 24px rgba(255, 105, 160, 0.4);
+  }
+
+  .welcome-buttons
+  .normal-running-button:not(.is-escaping):hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* Touch device */
+
+@media (hover: none) {
+  .welcome-buttons button:hover {
+    transform: none;
+  }
+
+  .welcome-buttons button:active {
+    scale: 0.97;
+  }
+}
+
+/* ==========================================
+   TULIP CONTAINER
+========================================== */
+
+.welcome-tulip {
+  position: relative;
+
+  width: 100px;
+  height: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 20px;
+
+  animation:
+    tulipFloat 3s ease-in-out infinite;
+}
+
+/* Bông tulip chính */
+
+.tulip-emoji {
+  position: relative;
+  z-index: 3;
+
+  display: block;
+
+  font-size: 76px;
+  line-height: 1;
+
+  transform-origin: center 80%;
+
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s ease;
+}
+
+/* ==========================================
+   TULIP PETALS
+========================================== */
+
+.tulip-petal {
+  position: absolute;
+  z-index: 2;
+
+  font-size: 66px;
+  line-height: 1;
+
+  opacity: 0;
+
+  transform-origin: center 80%;
+
+  transition:
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.6s ease;
+}
+
+/* Cánh trái */
+
+.petal-left {
+  transform:
+    translateX(0)
+    rotate(0)
+    scale(0.7);
+}
+
+/* Cánh phải */
+
+.petal-right {
+  transform:
+    translateX(0)
+    rotate(0)
+    scale(0.7);
+}
+
+/* ==========================================
+   TULIP GLOW
+========================================== */
+
+.tulip-glow {
+  position: absolute;
+  z-index: 0;
+
+  width: 85px;
+  height: 85px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 105, 171, 0.4),
+    rgba(255, 160, 197, 0.12) 60%,
+    transparent 75%
+  );
+
+  filter: blur(12px);
+
+  opacity: 0;
+  transform: scale(0.6);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+/* ==========================================
+   BLOOMING STATE
+========================================== */
+
+/* Bông chính nở */
+
+.tulip-blooming .tulip-emoji {
+  transform:
+    scale(1.18)
+    translateY(-4px);
+
+  filter:
+    drop-shadow(
+      0 4px 10px rgba(255, 105, 171, 0.3)
+    );
+}
+
+/* Cánh trái xòe */
+
+.tulip-blooming .petal-left {
+  opacity: 0.9;
+
+  transform:
+    translateX(-22px)
+    rotate(-25deg)
+    scale(0.8);
+}
+
+/* Cánh phải xòe */
+
+.tulip-blooming .petal-right {
+  opacity: 0.9;
+
+  transform:
+    translateX(22px)
+    rotate(25deg)
+    scale(0.8);
+}
+
+/* Ánh sáng */
+
+.tulip-blooming .tulip-glow {
+  opacity: 1;
+  transform: scale(1.5);
+}
+
+/* ==========================================
+   BLOOM SPARKLES
+========================================== */
+
+.bloom-sparkle {
+  position: absolute;
+  z-index: 4;
+
+  font-size: 17px;
+
+  opacity: 0;
+  transform: scale(0.3);
+
+  transition:
+    opacity 0.5s ease,
+    transform 0.7s ease;
+}
+
+.sparkle-left {
+  top: 5px;
+  left: 0;
+}
+
+.sparkle-right {
+  top: 0;
+  right: 0;
+}
+
+.tulip-blooming .sparkle-left {
+  opacity: 1;
+
+  transform:
+    translate(-12px, -8px)
+    scale(1);
+}
+
+.tulip-blooming .sparkle-right {
+  opacity: 1;
+
+  transform:
+    translate(12px, -8px)
+    scale(1);
+}
+
+/* ==========================================
+   TULIP FLOAT ANIMATION
+========================================== */
+
+@keyframes tulipFloat {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - TABLET
+========================================== */
+
+@media (max-width: 768px) {
+  .welcome-content h1 {
+    font-size: 35px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+  .welcome-content {
+    padding: 20px 12px;
+  }
+
+  .welcome-content h1 {
+    font-size: clamp(26px, 7vw, 32px);
+  }
+
+  .welcome-content p {
+    font-size: 13px;
+    margin: 18px 0 16px;
+  }
+
+  .welcome-buttons {
+    gap: 10px;
+  }
+
+  .welcome-buttons button {
+    min-width: 120px;
+    height: 45px;
+
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .normal-button-slot {
+    width: 120px;
+    height: 45px;
+  }
+
+  .welcome-buttons .normal-running-button.is-escaping {
+    width: 120px;
+    height: 45px;
+  }
+
+  .welcome-buttons .btn-special {
+    min-width: 120px;
+  }
+
+  .welcome-tulip {
+    width: 90px;
+    height: 90px;
+  }
+
+  .tulip-emoji {
+    font-size: 68px;
+  }
+
+  .tulip-petal {
+    font-size: 60px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - SMALL MOBILE
+========================================== */
+
+@media (max-width: 360px) {
+  .welcome-buttons {
+    gap: 8px;
+  }
+
+  .normal-button-slot {
+    width: 112px;
+  }
+
+  .welcome-buttons button,
+  .welcome-buttons .btn-special {
+    min-width: 112px;
+    padding: 0 9px;
+    font-size: 11px;
+  }
+
+  .welcome-buttons .normal-running-button.is-escaping {
+    width: 112px;
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-tulip {
+    animation: none;
+  }
+
+  .tulip-emoji,
+  .tulip-petal,
+  .tulip-glow,
+  .bloom-sparkle,
+  .normal-running-button {
+    transition: none;
+  }
+}

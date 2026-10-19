@@ -1,0 +1,29 @@
+
+.main-layout {
+  position: relative;
+  isolation: isolate;
+
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  background: linear-gradient(
+    125deg,
+    #ffe2ed 0%,
+    #ffebdc 26%,
+    #fff3d3 51%,
+    #edf4e7 76%,
+    #e0f2ff 100%
+  );
+
+  overflow-x: clip;
+}
+
+.layout-content {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+}

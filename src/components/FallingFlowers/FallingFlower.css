@@ -1,0 +1,78 @@
+
+.falling-flowers {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.falling-flower {
+  position: absolute;
+  top: -40px;
+  display: inline-block;
+  user-select: none;
+  line-height: 1;
+
+  will-change: transform;
+
+  animation-name: flowerFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes flowerFall {
+  0% {
+    transform:
+      translate3d(0, -40px, 0)
+      rotate(0deg);
+  }
+
+  25% {
+    transform:
+      translate3d(
+        calc(var(--sway) * 0.5),
+        25vh,
+        0
+      )
+      rotate(45deg);
+  }
+
+  50% {
+    transform:
+      translate3d(
+        var(--sway),
+        50vh,
+        0
+      )
+      rotate(-30deg);
+  }
+
+  75% {
+    transform:
+      translate3d(
+        calc(var(--sway) * -0.4),
+        75vh,
+        0
+      )
+      rotate(90deg);
+  }
+
+  100% {
+    transform:
+      translate3d(
+        0,
+        calc(100dvh + 100px),
+        0
+      )
+      rotate(var(--rotation));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .falling-flower {
+    animation: none;
+    top: 50%;
+    opacity: 0.3;
+  }
+}

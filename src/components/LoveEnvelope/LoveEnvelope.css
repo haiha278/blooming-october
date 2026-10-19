@@ -1,0 +1,595 @@
+
+/* ===================================
+   LOVE ENVELOPE - 3D ANIMATION
+=================================== */
+
+/* ===== ENVELOPE BUTTON ===== */
+
+.letter-button {
+  position: relative;
+  width: 350px;
+  height: 330px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.letter-button:focus-visible {
+  outline: 3px solid #fa7ca8;
+  outline-offset: 5px;
+  border-radius: 24px;
+}
+
+/* ===== GLOW EFFECT ===== */
+
+.letter-glow {
+  position: absolute;
+
+  width: 300px;
+  height: 250px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 153, 192, 0.4) 0%,
+    rgba(255, 195, 211, 0.18) 50%,
+    transparent 75%
+  );
+
+  filter: blur(25px);
+
+  animation: glowPulse 3s ease-in-out infinite;
+
+  pointer-events: none;
+}
+
+/* ===== LETTER ART ===== */
+
+.letter-art {
+  position: relative;
+
+  display: block;
+
+  width: 280px;
+  height: 230px;
+
+  animation: letterFloat 3.5s ease-in-out infinite;
+
+  transition: transform 0.4s ease;
+}
+
+
+/* Chỉ hover trên máy có chuột */
+
+@media (hover: hover) and (pointer: fine) {
+  .letter-button:not(.letter-opened):hover .letter-art {
+    animation-play-state: paused;
+    transform: translateY(-10px) scale(1.06);
+  }
+}
+
+/* Tương tác cảm ứng */
+
+.letter-button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Không bị phóng to khi mobile giữ hover */
+
+@media (hover: none) {
+  .letter-button:not(.letter-opened):hover .letter-art {
+    transform: none;
+    animation-play-state: running;
+  }
+}
+
+/* Tránh thư rộng hơn màn hình nhỏ */
+
+@media (max-width: 380px) {
+  .letter-button {
+    width: min(350px, 100vw);
+    height: 295px;
+  }
+
+  .letter-art {
+    scale: 0.85;
+  }
+}
+
+
+/* ===== LETTER SHADOW ===== */
+
+.letter-shadow {
+  position: absolute;
+
+  bottom: 8px;
+  left: 12%;
+
+  width: 76%;
+  height: 25px;
+
+  border-radius: 50%;
+
+  background: rgba(224, 91, 143, 0.25);
+
+  filter: blur(15px);
+}
+
+/* ===== MAIN ENVELOPE ===== */
+
+.envelope {
+  position: absolute;
+
+  width: 250px;
+  height: 165px;
+
+  left: 15px;
+  top: 43px;
+
+  perspective: 900px;
+
+  filter: drop-shadow(
+    0 12px 15px rgba(237, 114, 151, 0.24)
+  );
+}
+
+/* ===== ENVELOPE BACK ===== */
+
+.envelope-back {
+  position: absolute;
+  inset: 0;
+
+  border-radius: 13px;
+
+  background: linear-gradient(
+    145deg,
+    #ffe3e9,
+    #ffc2d3
+  );
+
+  border: 2px solid #fff6f7;
+}
+
+/* ===== LETTER PAPER ===== */
+
+.letter-paper {
+  position: absolute;
+
+  width: 80%;
+  height: 135px;
+
+  left: 10%;
+  top: 10px;
+
+  z-index: 2;
+
+  border-radius: 9px;
+
+  background: linear-gradient(
+    145deg,
+    #fffdfa,
+    #ffeaf0
+  );
+
+  box-shadow:
+    0 3px 12px rgba(185, 81, 120, 0.15);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  transition: transform 1s ease 0.3s;
+}
+
+.paper-heart {
+  color: #f77fa9;
+  font-size: 30px;
+}
+
+.paper-line {
+  width: 100px;
+  height: 3px;
+
+  border-radius: 10px;
+
+  background: #f5bccd;
+}
+
+.paper-line.short {
+  width: 65px;
+}
+
+/* ===== ENVELOPE FLAP ===== */
+
+.envelope-flap {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 95px;
+
+  z-index: 4;
+
+  background: linear-gradient(
+    to bottom,
+    #ffcedc,
+    #ffe7ee
+  );
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    50% 100%
+  );
+
+  transform-origin: center top;
+
+  transition:
+    transform 0.8s ease,
+    z-index 0s linear 0.4s;
+
+  backface-visibility: hidden;
+}
+
+/* ===== ENVELOPE FRONT ===== */
+
+.envelope-front {
+  position: absolute;
+  inset: 0;
+
+  z-index: 5;
+
+  border-radius: 0 0 13px 13px;
+
+  background: linear-gradient(
+    145deg,
+    #ffe4e9,
+    #ffc6d7
+  );
+
+  clip-path: polygon(
+    0 0,
+    50% 52%,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+
+  box-shadow:
+    inset 0 -5px 15px rgba(232, 112, 152, 0.1);
+}
+
+/* ===================================
+   RIBBON
+=================================== */
+
+.envelope-ribbon {
+  position: absolute;
+
+  z-index: 7;
+
+  left: 50%;
+  top: 57%;
+
+  width: 110px;
+  height: 75px;
+
+  transform: translate(-50%, -50%);
+
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+/* ===== RIBBON LOOPS ===== */
+
+.ribbon-left,
+.ribbon-right {
+  position: absolute;
+
+  top: 5px;
+
+  width: 48px;
+  height: 35px;
+
+  background: linear-gradient(
+    135deg,
+    #ffb1cb,
+    #f36b9c
+  );
+
+  border: 2px solid #ffe1e9;
+
+  box-shadow:
+    inset 0 3px 8px rgba(255, 255, 255, 0.45);
+}
+
+.ribbon-left {
+  left: 4px;
+
+  border-radius: 55% 10% 45% 45%;
+
+  transform: rotate(20deg);
+}
+
+.ribbon-right {
+  right: 4px;
+
+  border-radius: 10% 55% 45% 45%;
+
+  transform: rotate(-20deg);
+}
+
+/* ===== RIBBON TAILS ===== */
+
+.ribbon-tail-left,
+.ribbon-tail-right {
+  position: absolute;
+
+  top: 30px;
+
+  width: 27px;
+  height: 48px;
+
+  background: linear-gradient(
+    #ff9fc0,
+    #ec6493
+  );
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    50% 80%,
+    0 100%
+  );
+}
+
+.ribbon-tail-left {
+  left: 29px;
+  transform: rotate(18deg);
+}
+
+.ribbon-tail-right {
+  right: 29px;
+  transform: rotate(-18deg);
+}
+
+/* ===== RIBBON HEART ===== */
+
+.ribbon-heart {
+  position: absolute;
+
+  z-index: 8;
+
+  top: 15px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    #fff4c6,
+    #f9c66d
+  );
+
+  border: 3px solid #fff3d9;
+
+  color: #fa6e9c;
+  font-size: 22px;
+
+  box-shadow:
+    0 3px 10px rgba(193, 96, 123, 0.25);
+}
+
+/* ===================================
+   FLOWER DECORATIONS
+=================================== */
+
+.letter-flower {
+  position: absolute;
+
+  z-index: 8;
+
+  font-size: 45px;
+
+  pointer-events: none;
+
+  filter: drop-shadow(
+    0 4px 5px rgba(235, 132, 160, 0.25)
+  );
+}
+
+.flower-left {
+  left: -8px;
+  bottom: 0;
+
+  transform: rotate(-18deg);
+}
+
+.flower-right {
+  right: 0;
+  top: 22px;
+
+  font-size: 34px;
+
+  transform: rotate(20deg);
+}
+
+/* ===================================
+   SPARKLES
+=================================== */
+
+.letter-sparkle {
+  position: absolute;
+
+  z-index: 10;
+
+  color: #ffc45d;
+
+  pointer-events: none;
+
+  animation:
+    sparkle 2s ease-in-out infinite;
+}
+
+.sparkle-1 {
+  left: 10%;
+  top: 25%;
+
+  font-size: 28px;
+}
+
+.sparkle-2 {
+  right: 10%;
+  top: 16%;
+
+  font-size: 34px;
+
+  animation-delay: 0.5s;
+}
+
+.sparkle-3 {
+  left: 18%;
+  bottom: 20%;
+
+  font-size: 19px;
+
+  animation-delay: 1s;
+}
+
+.sparkle-4 {
+  right: 13%;
+  bottom: 25%;
+
+  font-size: 22px;
+
+  animation-delay: 1.4s;
+}
+
+/* ===================================
+   OPEN LETTER ANIMATION
+=================================== */
+
+/* Dừng hiệu ứng bay khi mở thư */
+
+.letter-opened .letter-art {
+  animation: none;
+}
+
+/* Nắp thư lật lên */
+
+.letter-opened .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+/* Tờ giấy trượt lên */
+
+.letter-opened .letter-paper {
+  transform: translateY(-85px);
+}
+
+/* Nơ biến mất */
+
+.letter-opened .envelope-ribbon {
+  opacity: 0;
+  pointer-events: none;
+
+  transform:
+    translate(-50%, -50%) scale(0.7);
+}
+
+/* ===================================
+   KEYFRAMES
+=================================== */
+
+@keyframes letterFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.7) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(20deg);
+  }
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media (max-width: 480px) {
+  .letter-button {
+    transform: scale(0.85);
+    margin: -20px 0;
+  }
+}
+
+/* ===================================
+   ACCESSIBILITY
+=================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .letter-art,
+  .letter-glow,
+  .letter-sparkle {
+    animation: none;
+  }
+
+  .envelope-flap,
+  .letter-paper,
+  .envelope-ribbon {
+    transition-duration: 0.01ms;
+  }
+}
