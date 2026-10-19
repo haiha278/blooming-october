@@ -1,10 +1,11 @@
 
 /* ==========================================
-   CELEBRATE PAGE
+   CELEBRATE PAGE - COMPLETE CSS
 ========================================== */
 
 .celebrate-page {
   position: relative;
+
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
@@ -13,8 +14,11 @@
   align-items: center;
   justify-content: center;
 
-  padding: 85px 20px 45px;
+  padding: 100px 20px 55px;
+
   overflow-x: clip;
+
+  font-family: "Quicksand", sans-serif;
 }
 
 /* ==========================================
@@ -22,12 +26,15 @@
 ========================================== */
 
 .celebrate-back-home {
-  position: fixed;
-  top: max(20px, env(safe-area-inset-top));
-  left: max(20px, env(safe-area-inset-left));
+  /* Cuộn theo trang, không đè nội dung */
+  position: absolute;
+
+  top: 20px;
+  left: 20px;
+
   z-index: 20;
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 9px;
@@ -45,26 +52,34 @@
   font-size: 13px;
   font-weight: 700;
 
-  box-shadow: 0 5px 18px rgba(255, 105, 160, 0.12);
+  box-shadow:
+    0 5px 18px rgba(255, 105, 160, 0.12);
+
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
   cursor: pointer;
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
 }
 
+/* Hover chỉ trên desktop */
+
 @media (hover: hover) and (pointer: fine) {
   .celebrate-back-home:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 22px rgba(255, 105, 160, 0.24);
+
+    box-shadow:
+      0 8px 22px rgba(255, 105, 160, 0.24);
   }
 }
 
 /* ==========================================
-   ENVELOPE
+   ENVELOPE TRANSITION
 ========================================== */
 
 .celebrate-envelope {
@@ -76,33 +91,49 @@
   align-items: center;
   justify-content: center;
 
+  width: 100%;
+  max-width: 100%;
+
+  margin: auto;
+
   transition:
     opacity 0.8s ease,
     transform 0.8s ease,
     filter 0.8s ease;
 }
 
+/* Phong thư biến mất sau khi mở */
+
 .celebrate-envelope.is-fading {
   opacity: 0;
-  transform: translateY(-35px) scale(0.82);
+
+  transform:
+    translateY(-35px)
+    scale(0.82);
+
   filter: blur(8px);
+
   pointer-events: none;
 }
 
-.celebrate-letter-instruction {
-  margin-top: -8px;
+/* Dòng hướng dẫn mở thư */
 
-  color: #ec7399;
+.celebrate-letter-instruction {
+  margin: -8px 0 0;
+
   font-family: "Quicksand", sans-serif;
   font-size: 15px;
   font-weight: 700;
+
+  color: #ec7399;
   text-align: center;
 
-  animation: celebrateInstruction 2s ease-in-out infinite;
+  animation:
+    celebrateInstruction 2s ease-in-out infinite;
 }
 
 /* ==========================================
-   MAIN CONTENT
+   CONTENT CONTAINER
 ========================================== */
 
 .celebrate-content {
@@ -110,60 +141,87 @@
   z-index: 2;
 
   width: min(100%, 1000px);
+  min-width: 0;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+
+  margin: 0 auto;
 
   text-align: center;
 
-  animation: celebrateAppear 1s ease both;
+  animation:
+    celebrateAppear 1s ease both;
 }
 
 /* ==========================================
-   FLOWER
+   MAIN FLOWER
 ========================================== */
 
 .celebrate-flower {
+  display: block;
+
   font-size: 66px;
   line-height: 1;
+
   margin-bottom: 22px;
 
-  animation: celebrateFloat 3s ease-in-out infinite;
+  animation:
+    celebrateFloat 3s ease-in-out infinite;
 }
 
 /* ==========================================
-   HERO
+   HERO TITLE
 ========================================== */
 
 .celebrate-hero {
+  width: 100%;
+  min-width: 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   gap: 12px;
-  width: 100%;
+
+  text-align: center;
 }
 
+/* Hoa trang trí */
+
 .celebrate-decoration {
+  display: block;
+
   font-size: 22px;
   letter-spacing: 10px;
 
-  animation: celebrateGlow 3s ease-in-out infinite;
+  animation:
+    celebrateGlow 3s ease-in-out infinite;
 }
+
+/* Tiêu đề chính */
 
 .celebrate-hero h1 {
   margin: 0;
+
+  width: 100%;
   max-width: 100%;
 
   font-family: "Quicksand", sans-serif;
+
   font-size: clamp(40px, 6vw, 80px);
   font-weight: 700;
   line-height: 1.18;
   letter-spacing: -1.5px;
 
   color: #4b293b;
+
+  text-align: center;
   text-wrap: balance;
+  overflow-wrap: break-word;
 
   text-shadow:
     0 2px 0 rgba(255, 255, 255, 0.35),
@@ -179,12 +237,15 @@
 
   width: 200px;
   height: 40px;
-  margin-top: 8px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  margin-top: 8px;
 }
+
+/* Hai đường kẻ hồng */
 
 .celebrate-flag-line::before,
 .celebrate-flag-line::after {
@@ -212,25 +273,36 @@
   transform: rotate(180deg);
 }
 
+/* Lá cờ SVG */
+
 .celebrate-flag {
   display: block;
 
   width: 42px;
   height: 28px;
 
+  flex-shrink: 0;
   border-radius: 2px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ==========================================
-   MESSAGE
+   MESSAGE CONTAINER
 ========================================== */
 
 .celebrate-message {
   width: 100%;
   max-width: 850px;
+  min-width: 0;
+
   margin-top: 40px;
+
+  text-align: center;
 }
+
+/* Tiêu đề lời chúc */
 
 .celebrate-message h2 {
   margin: 0 0 25px;
@@ -243,8 +315,11 @@
   color: #5a3344;
 }
 
+/* Nội dung lời chúc */
+
 .celebrate-message p {
   margin: 0 auto;
+
   min-height: 260px;
 
   font-family: "Quicksand", sans-serif;
@@ -259,18 +334,21 @@
 }
 
 /* ==========================================
-   TYPING CURSOR
+   TYPEWRITER CURSOR
 ========================================== */
 
 .celebrate-cursor {
+  display: inline;
+
   color: #ff73a6;
   font-weight: 700;
 
-  animation: celebrateBlink 0.7s step-end infinite;
+  animation:
+    celebrateBlink 0.7s step-end infinite;
 }
 
 /* ==========================================
-   ENDING
+   ENDING MESSAGE
 ========================================== */
 
 .celebrate-ending {
@@ -287,16 +365,20 @@
   font-size: 21px;
   font-weight: 700;
 
-  animation: celebrateAppear 0.9s ease both;
+  text-align: center;
+
+  animation:
+    celebrateAppear 0.9s ease both;
 }
 
 /* ==========================================
-   FIREWORKS
+   FIREWORKS SHARED
 ========================================== */
 
 .celebrate-fireworks-layer {
   position: fixed;
   inset: 0;
+
   z-index: 10;
 
   pointer-events: none;
@@ -305,16 +387,19 @@
 
 .celebrate-firework {
   position: absolute;
+
   width: 0;
   height: 0;
 }
 
 .celebrate-particle {
   position: absolute;
+
   top: 0;
   left: 0;
 
   border-radius: 50%;
+
   background: var(--fw-color);
 
   box-shadow:
@@ -322,7 +407,9 @@
     0 0 22px var(--fw-color);
 }
 
-/* Pháo hoa lớn: một lần */
+/* ==========================================
+   BIG FIREWORKS - ONE BURST
+========================================== */
 
 .celebrate-firework-big .celebrate-particle {
   width: 12px;
@@ -340,19 +427,24 @@
 @keyframes celebrateBigBurst {
   0% {
     opacity: 0;
+
     transform:
       rotate(var(--fw-angle))
       translateY(0)
       scale(0.2);
   }
 
-  15%,
+  15% {
+    opacity: 1;
+  }
+
   65% {
     opacity: 1;
   }
 
   100% {
     opacity: 0;
+
     transform:
       rotate(var(--fw-angle))
       translateY(-190px)
@@ -360,7 +452,9 @@
   }
 }
 
-/* Pháo hoa nhỏ: lặp liên tục */
+/* ==========================================
+   SMALL FIREWORKS - CONTINUOUS
+========================================== */
 
 .celebrate-firework-small .celebrate-particle {
   width: 8px;
@@ -377,6 +471,7 @@
 @keyframes celebrateSmallBurst {
   0% {
     opacity: 0;
+
     transform:
       rotate(var(--fw-angle))
       translateY(0)
@@ -389,6 +484,7 @@
 
   100% {
     opacity: 0;
+
     transform:
       rotate(var(--fw-angle))
       translateY(-90px)
@@ -399,6 +495,8 @@
 /* ==========================================
    ANIMATIONS
 ========================================== */
+
+/* Nội dung xuất hiện */
 
 @keyframes celebrateAppear {
   from {
@@ -412,6 +510,8 @@
   }
 }
 
+/* Hoa đung đưa */
+
 @keyframes celebrateFloat {
   0%,
   100% {
@@ -422,6 +522,8 @@
     transform: translateY(-8px);
   }
 }
+
+/* Trang trí lấp lánh */
 
 @keyframes celebrateGlow {
   0%,
@@ -436,11 +538,15 @@
   }
 }
 
+/* Cursor */
+
 @keyframes celebrateBlink {
   50% {
     opacity: 0;
   }
 }
+
+/* Hướng dẫn mở thư */
 
 @keyframes celebrateInstruction {
   0%,
@@ -454,7 +560,29 @@
 }
 
 /* ==========================================
-   MOBILE
+   TABLET RESPONSIVE
+========================================== */
+
+@media (max-width: 900px) {
+  .celebrate-content {
+    max-width: 750px;
+  }
+
+  .celebrate-hero h1 {
+    font-size: clamp(38px, 6vw, 65px);
+  }
+
+  .celebrate-message {
+    margin-top: 32px;
+  }
+
+  .celebrate-message p {
+    min-height: 200px;
+  }
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE
 ========================================== */
 
 @media (max-width: 600px) {
@@ -463,16 +591,28 @@
   }
 
   .celebrate-back-home {
-    top: max(12px, env(safe-area-inset-top));
-    left: max(12px, env(safe-area-inset-left));
+    position: absolute;
 
-    padding: 0 14px;
+    top: 15px;
+    left: 15px;
+
+    min-height: 42px;
+    padding: 0 15px;
+
     font-size: 12px;
+  }
+
+  .celebrate-content {
+    width: 100%;
   }
 
   .celebrate-flower {
     font-size: 54px;
     margin-bottom: 18px;
+  }
+
+  .celebrate-hero {
+    gap: 9px;
   }
 
   .celebrate-hero h1 {
@@ -483,6 +623,16 @@
   .celebrate-decoration {
     font-size: 17px;
     letter-spacing: 7px;
+  }
+
+  .celebrate-flag-line {
+    width: 170px;
+    height: 35px;
+  }
+
+  .celebrate-flag-line::before,
+  .celebrate-flag-line::after {
+    width: 55px;
   }
 
   .celebrate-message {
@@ -501,6 +651,7 @@
   }
 
   .celebrate-ending {
+    flex-wrap: wrap;
     font-size: 16px;
     gap: 8px;
   }
@@ -516,7 +667,35 @@
   }
 }
 
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 360px) {
+  .celebrate-page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .celebrate-hero h1 {
+    font-size: 30px;
+  }
+
+  .celebrate-message h2 {
+    font-size: 19px;
+  }
+
+  .celebrate-message p {
+    font-size: 14px;
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
 @media (prefers-reduced-motion: reduce) {
+  .celebrate-envelope,
   .celebrate-content,
   .celebrate-flower,
   .celebrate-decoration,
@@ -524,9 +703,6 @@
   .celebrate-cursor,
   .celebrate-letter-instruction {
     animation: none;
-  }
-
-  .celebrate-envelope {
     transition: none;
   }
 

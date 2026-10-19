@@ -14,7 +14,7 @@ interface PasswordModalProps {
   onSuccess: () => void;
 }
 
-const SECRET_PASSWORD = "2010";
+const SECRET_PASSWORD = "20102026";
 
 function PasswordModal({
   isOpen,

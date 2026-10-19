@@ -1,6 +1,6 @@
 
 /* ==========================================
-   SPECIAL PAGE - COMPLETE RESTORED CSS
+   SPECIAL PAGE
 ========================================== */
 
 .special-page {
@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
 
-  padding: 90px 20px 55px;
+  padding: 100px 20px 55px;
   overflow-x: clip;
 
   font-family: "Quicksand", sans-serif;
@@ -24,12 +24,12 @@
 ========================================== */
 
 .special-back-home {
-  position: fixed;
+  position: absolute;
 
-  top: max(20px, env(safe-area-inset-top));
-  left: max(20px, env(safe-area-inset-left));
+  top: 20px;
+  left: 20px;
 
-  z-index: 30;
+  z-index: 20;
 
   display: inline-flex;
   align-items: center;
@@ -42,7 +42,7 @@
   border: 2px solid #ff9cbd;
   border-radius: 30px;
 
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.85);
   color: #4b293b;
 
   font-family: "Quicksand", sans-serif;
@@ -66,14 +66,12 @@
 @media (hover: hover) and (pointer: fine) {
   .special-back-home:hover {
     transform: translateY(-3px);
-
-    box-shadow:
-      0 8px 22px rgba(255, 105, 160, 0.24);
+    box-shadow: 0 8px 22px rgba(255, 105, 160, 0.24);
   }
 }
 
 /* ==========================================
-   ENVELOPE SCREEN
+   ENVELOPE TRANSITION
 ========================================== */
 
 .special-envelope {
@@ -94,37 +92,27 @@
     filter 0.8s ease;
 }
 
-/* Phong thư mở xong sẽ tan biến */
-
 .special-envelope.is-fading {
   opacity: 0;
-
-  transform:
-    translateY(-35px)
-    scale(0.82);
-
+  transform: translateY(-35px) scale(0.82);
   filter: blur(8px);
   pointer-events: none;
 }
 
-/* Hướng dẫn mở phong thư */
-
 .letter-instruction {
   margin: -8px 0 0;
 
+  color: #ec7399;
   font-family: "Quicksand", sans-serif;
   font-size: 15px;
   font-weight: 700;
-
-  color: #ec7399;
   text-align: center;
 
-  animation:
-    instructionPulse 2s ease-in-out infinite;
+  animation: instructionPulse 2s ease-in-out infinite;
 }
 
 /* ==========================================
-   MEMORIES CONTAINER
+   MEMORIES SECTION
 ========================================== */
 
 .memories-section {
@@ -132,51 +120,39 @@
   z-index: 2;
 
   width: min(100%, 1100px);
-  max-width: 1100px;
   min-width: 0;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 
   gap: 26px;
   margin: 0 auto;
 
-  animation:
-    memoriesEnter 0.8s ease both;
+  animation: memoriesEnter 0.8s ease both;
 }
 
 /* ==========================================
-   HERO HEADER
+   HERO TITLE
 ========================================== */
 
 .special-hero {
   width: 100%;
-  min-width: 0;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 
   gap: 10px;
   text-align: center;
 }
 
-/* Hoa trang trí */
-
 .special-hero-decoration {
-  display: block;
-
   font-size: 23px;
   letter-spacing: 12px;
 
-  animation:
-    heroSparkle 3s ease-in-out infinite;
+  animation: heroSparkle 3s ease-in-out infinite;
 }
-
-/* Tiêu đề chính */
 
 .special-hero-title {
   margin: 0;
@@ -187,12 +163,10 @@
   font-family: "Quicksand", sans-serif;
   font-size: clamp(42px, 6.5vw, 90px);
   font-weight: 700;
-
   line-height: 1.2;
   letter-spacing: -1.5px;
 
   color: #4b293b;
-
   text-align: center;
   text-wrap: balance;
   overflow-wrap: break-word;
@@ -201,8 +175,7 @@
     0 2px 0 rgba(255, 255, 255, 0.35),
     0 8px 24px rgba(118, 74, 92, 0.08);
 
-  animation:
-    heroAppear 1s ease both;
+  animation: heroAppear 1s ease both;
 }
 
 /* ==========================================
@@ -221,8 +194,6 @@
 
   margin: 5px auto;
 }
-
-/* Hai đường kẻ hồng */
 
 .special-hero-line::before,
 .special-hero-line::after {
@@ -250,19 +221,15 @@
   transform: rotate(180deg);
 }
 
-/* SVG lá cờ */
-
 .vietnam-flag {
   display: block;
-
   width: 36px;
   height: 24px;
 
   flex-shrink: 0;
   border-radius: 2px;
 
-  box-shadow:
-    0 2px 5px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
 }
 
 /* ==========================================
@@ -286,9 +253,7 @@
   align-items: start;
 }
 
-/* ==========================================
-   POLAROID IMAGE
-========================================== */
+/* Polaroid */
 
 .memory-photo {
   position: relative;
@@ -319,8 +284,6 @@
     visibility 0.85s;
 }
 
-/* Ảnh xuất hiện lần lượt */
-
 .memory-photo.is-visible {
   opacity: 1;
   visibility: visible;
@@ -330,8 +293,6 @@
     rotate(var(--photo-rotation, 0deg))
     scale(1);
 }
-
-/* Giới hạn kích thước ảnh */
 
 .memory-photo img {
   display: block;
@@ -346,8 +307,6 @@
   border-radius: 2px;
 }
 
-/* Hover Polaroid trên desktop */
-
 @media (hover: hover) and (pointer: fine) {
   .memory-photo.is-visible:hover {
     transform:
@@ -360,7 +319,7 @@
 }
 
 /* ==========================================
-   MESSAGE SECTION
+   MESSAGE
 ========================================== */
 
 .memories-message {
@@ -369,7 +328,6 @@
   min-width: 0;
 
   padding: 0 18px;
-
   text-align: center;
 }
 
@@ -384,17 +342,13 @@
   line-height: 1.25;
 
   color: #5a3344;
-
   min-height: 1.25em;
 }
-
-/* Nội dung lời chúc */
 
 .memories-message p {
   margin: 0 auto;
 
   font-family: "Quicksand", sans-serif;
-
   font-size: clamp(16px, 1.8vw, 20px);
   font-weight: 500;
   line-height: 1.9;
@@ -407,20 +361,15 @@
   min-height: 130px;
 }
 
-/* Con trỏ typing */
-
 .typing-cursor {
-  display: inline;
-
   color: #ff73a6;
   font-weight: 700;
 
-  animation:
-    cursorBlink 0.7s step-end infinite;
+  animation: cursorBlink 0.7s step-end infinite;
 }
 
 /* ==========================================
-   SIGNATURE
+   SIGNATURE AND FACE
 ========================================== */
 
 .memories-signature {
@@ -434,22 +383,15 @@
   gap: 12px;
 
   font-family: "Quicksand", sans-serif;
-
-  animation:
-    signatureAppear 0.8s ease both;
+  animation: signatureAppear 0.8s ease both;
 }
-
-/* Hai Ha màu đen như yêu cầu trước */
 
 .signature-text {
   color: #333333;
-
   font-size: 18px;
   font-weight: 700;
   text-align: center;
 }
-
-/* Ảnh mặt bên dưới tên, không khung */
 
 .signature-face {
   display: block;
@@ -462,7 +404,6 @@
 
   border: none;
   border-radius: 0;
-
   background: transparent;
   box-shadow: none;
 
@@ -471,8 +412,7 @@
       0 6px 14px rgba(200, 105, 145, 0.18)
     );
 
-  animation:
-    faceFloat 3s ease-in-out infinite;
+  animation: faceFloat 3s ease-in-out infinite;
 }
 
 /* ==========================================
@@ -491,19 +431,16 @@
 
 .firework {
   position: absolute;
-
   width: 0;
   height: 0;
 }
 
 .firework-particle {
   position: absolute;
-
   top: 0;
   left: 0;
 
   border-radius: 50%;
-
   background: var(--firework-color);
 
   box-shadow:
@@ -597,7 +534,7 @@
 }
 
 /* ==========================================
-   OTHER ANIMATIONS
+   ANIMATIONS
 ========================================== */
 
 @keyframes memoriesEnter {
@@ -678,7 +615,7 @@
 }
 
 /* ==========================================
-   TABLET RESPONSIVE
+   TABLET
 ========================================== */
 
 @media (max-width: 900px) {
@@ -704,7 +641,7 @@
 }
 
 /* ==========================================
-   MOBILE RESPONSIVE
+   MOBILE
 ========================================== */
 
 @media (max-width: 600px) {
@@ -713,10 +650,12 @@
   }
 
   .special-back-home {
-    top: max(12px, env(safe-area-inset-top));
-    left: max(12px, env(safe-area-inset-left));
+    top: 15px;
+    left: 15px;
 
-    padding: 0 14px;
+    min-height: 42px;
+    padding: 0 15px;
+
     font-size: 12px;
   }
 
